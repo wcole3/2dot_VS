@@ -11,26 +11,27 @@
 #undef main
 #include <SDL_image.h>
 #include <SDL_ttf.h>
+#include <SDL_mixer.h>
 #include <stdio.h>
 #include <string>
 #include <sstream>
 #include <fstream>
-#include "lUtilityFunc.h"
-#include "lTexture.h"
-#include "lTimer.h"
-#include "lRigidDot.h"
-#include "lWindow.h"
-#include "lTile.h"
-#include "globals.h"
-#include "lInitMethods.h"
-#include "lSettingsMethods.h"
-#include "lLeaderboardMethods.h"
-#include "lGameMethods.h"
-#include "lMenuMethods.h"
+#include "include/lUtilityFunc.h"
+#include "include/lTexture.h"
+#include "include/lTimer.h"
+#include "include/lTile.h"
+#include "include/lRigidDot.h"
+#include "include/lWindow.h"
+#include "include/globals.h"
+#include "include/lInitMethods.h"
+#include "include/lSettingsMethods.h"
+#include "include/lLeaderboardMethods.h"
+#include "include/lGameMethods.h"
+#include "include/lMenuMethods.h"
 
-//implementing settings and leaderboard
+//sound and particles
 
-
+//movement system under review
 
 int main(int argc, const char * argv[]) {
     // lets get down to business
@@ -45,6 +46,9 @@ int main(int argc, const char * argv[]) {
             bool quit = false;
             //need an int to move the highlighter box
             int offset = 0;
+            //start the menu music
+            Mix_VolumeMusic(30);
+            Mix_FadeInMusic(gMenuMusic, -1, 2000);
             while(!quit){
                 while(SDL_PollEvent(&e) != 0){
                     if(e.type == SDL_QUIT){
@@ -73,6 +77,7 @@ int main(int argc, const char * argv[]) {
                 SDL_RenderFillRect(gWindow.getRenderer(), &buttonBubble);
                 SDL_RenderPresent(gWindow.getRenderer());
             }
+            Mix_HaltMusic();
         }
     }
     //free all resources and close libs

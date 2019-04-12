@@ -10,6 +10,7 @@
 
 #ifndef lTexture_h
 #define lTexture_h
+
 using namespace std;
 
 class lTexture{
@@ -166,7 +167,7 @@ private:
     SDL_Texture* mTexture;
     SDL_Renderer* lRenderer;
 
-    TTF_Font* lFont;
+    TTF_Font* lFont = NULL;
 
 };
 //top level declaration of method to batch assign fonts
@@ -177,7 +178,7 @@ private:
     @param font the TTF_Font to use
     @param sizeOfArray the size of the textTextures[] array
  */
-
+void setFonts(lTexture textTextures[], TTF_Font* font, int sizeOfArray);
 
 //define methods
 //constructor
@@ -292,13 +293,6 @@ void lTexture::setFont(TTF_Font* font){
     lFont=font;
 }
 
-//method to assign an array of lTextures their font
-void setFonts(lTexture textTextures[], TTF_Font* font, int sizeOfArray) {
-	for (int i = 0; i < sizeOfArray; ++i) {
-		textTextures[i].setFont(font);
-	}
-}
-
 //finally the rendering method
 void lTexture::render(int x, int y, SDL_Rect* clip,SDL_Rect* screen ,double angle, SDL_Point* center, SDL_RendererFlip flip ){
     //first setup screen loaction argument
@@ -378,6 +372,14 @@ void lTexture::setRenderTarget(){
         SDL_SetRenderTarget(lRenderer, mTexture);
     }
 }
+
+//method to assign an array of lTextures their font
+void setFonts(lTexture textTextures[], TTF_Font* font, int sizeOfArray) {
+	for (int i = 0; i < sizeOfArray; ++i) {
+		textTextures[i].setFont(font);
+	}
+}
+
 
 
 

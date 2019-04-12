@@ -97,10 +97,10 @@ private:
     //the window's width and height
     int mWidth;
     int mHeight;
-    int mWindowID;
-    int mWindowDisplayID;
+    int mWindowID = 0;
+    int mWindowDisplayID = 0;
     //an outside definition of the max number fo connected displays
-    int TOTAL_DISPLAYS;
+    int TOTAL_DISPLAYS = 0;
     //the bounds of each display
     SDL_Rect* mDisplayBounds = NULL;
     //bools to determine the state of the window
@@ -163,7 +163,7 @@ bool lWindow::init(int width, int height, string title){
             printf("Only one display connected!\n");
         }
         //create renderer
-        mRenderer = SDL_CreateRenderer(mWindow, -1, SDL_RENDERER_ACCELERATED || SDL_RENDERER_PRESENTVSYNC);
+        mRenderer = SDL_CreateRenderer(mWindow, -1, SDL_RENDERER_ACCELERATED);
         if(mRenderer == NULL){
             printf("Could not create renderer for window %s! SDL error: %s\n", to_string(getWindowID()).c_str(), SDL_GetError());
             successFlag = false;
